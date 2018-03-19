@@ -3,32 +3,74 @@ _blips = {}
 
 def setup():
     from .schema import Quadrant, Position, Blip, Ring
-    blips = []
+
+    def _store_blip(name, info, position, new):
+        id = str(len(_blips.values()))
+        blip = Blip(
+            id = id,
+            name = name,
+            info = info,
+            position = position,
+            new = new
+        )
+        _blips[id] = blip
+        blips = []
     
-    blips.append(Blip(
-        id = "0",
-        name = 'Spurious code examples',
-        info = 'hello',
-        position = Position(
-            quadrant = Quadrant.TECHNIQUES,
-            distance = 5,
-            ring = Ring.ADOPT),
-        new = True
-    ))
+    _store_blip('Spurious code examples',
+                'hello',
+                Position(
+                  quadrant = Quadrant.TECHNIQUES,
+                  distance = 5,
+                  ring = Ring.ADOPT),
+                True)
 
-    blips.append(Blip(
-        id = "1",
-        name = 'Tautology and repetition',
-        info = 'some info goes here, also explain the thing',
-        position = Position(
-            quadrant = Quadrant.LANGUAGES_AND_FRAMEWORKS,
-            distance = 3,
-            ring = Ring.HOLD),
-        new = False
-    ))
+    _store_blip('Friday pub',
+                'Beverage-Ops as a practice not a role',
+                Position(
+                  quadrant = Quadrant.TECHNIQUES,
+                  ring = Ring.ADOPT,
+                  distance = 3),
+                  True)
 
-    for b in blips:
-        _blips[b.id] = b
+    _store_blip('Tautology and repetition',
+                'some info goes here, also explain the thing',
+                Position(
+                  quadrant = Quadrant.LANGUAGES_AND_FRAMEWORKS,
+                  distance = 3,
+                  ring = Ring.HOLD),
+                False)
+
+    _store_blip('Enterprise scale fizzbuzz',
+                'Fizz... ESB... buzz... ESB... fizz... ESB... buzz...',
+                Position(
+                  quadrant = Quadrant.PLATFORMS,
+                  ring = Ring.ASSESS,
+                  distance = 9),
+                True)
+
+    _store_blip('VR IDE',
+                '360 Degree wrap around coding environments',
+                Position(
+                  quadrant = Quadrant.TOOLS,
+                  ring = Ring.ASSESS,
+                  distance = 1),
+                False)
+
+    _store_blip('USB Based Deployment Pipelines',
+                'Switch to SD cards for massive storage gains',
+                Position(
+                  quadrant = Quadrant.TECHNIQUES,
+                  ring = Ring.HOLD,
+                  distance = 9),
+                True)
+
+    _store_blip('Subtly trolling doppler with fake tech radar blips',
+                'Needs more real world evidence',
+                Position(
+                  quadrant = Quadrant.LANGUAGES_AND_FRAMEWORKS,
+                  ring = Ring.TRIAL,
+                  distance = 2),
+                True)
 
 
 def _filter_by_quadrant(blips, quadrant):
