@@ -20,6 +20,11 @@ class Position(graphene.ObjectType):
     quadrant = graphene.Field(Quadrant)
     ring = graphene.Field(Ring)
     distance = graphene.Int()
+    blips = graphene.List(lambda: Blip)
+
+    def resolve_blips(root, *args, **kwargs):
+        blips = get_blips(root.quadrant, root.ring)
+        return sorted(blips, key=lambda b: b.position.distance)
 
     def resolve_ring(root, *args, **kwargs):
         return root.ring.value
@@ -37,6 +42,7 @@ class Blip(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
+    """ this is the entry point for the graphQL API"""
     blips = graphene.List(Blip, quadrant=Quadrant(), ring=Ring())
     blip = graphene.Field(Blip, id=graphene.ID(required=True))
 
