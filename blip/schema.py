@@ -21,6 +21,12 @@ class Position(graphene.ObjectType):
     ring = graphene.Field(Ring)
     distance = graphene.Int()
 
+    def resolve_ring(root, *args, **kwargs):
+        return root.ring.value
+
+    def resolve_quadrant(root, *args, **kwargs):
+        return root.quadrant.value
+
 
 class Blip(graphene.ObjectType):
     id = graphene.ID()
