@@ -37,11 +37,11 @@ class Blip(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    blips = graphene.List(Blip, quadrant=Quadrant())
+    blips = graphene.List(Blip, quadrant=Quadrant(), ring=Ring())
     blip = graphene.Field(Blip, id=graphene.ID(required=True))
 
-    def resolve_blips(self, info, quadrant=None):
-        return get_blips(quadrant)
+    def resolve_blips(self, info, quadrant=None, ring=None):
+        return get_blips(quadrant, ring)
 
     def resolve_blip(self, info, id):
         return get_blip(id)

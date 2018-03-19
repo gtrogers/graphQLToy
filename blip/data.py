@@ -31,9 +31,21 @@ def setup():
         _blips[b.id] = b
 
 
-def get_blips(quadrant=None):
+def _filter_by_quadrant(blips, quadrant):
+  return [b for b in blips if b.position.quadrant == quadrant]
+
+
+def _filter_by_ring(blips, ring):
+  return [b for b in blips if b.position.ring == ring]
+
+
+def get_blips(quadrant=None, ring=None):
+    if quadrant is not None and ring is not None:
+        return _filter_by_quadrant(_filter_by_ring(_blips.values(), ring), quadrant)
     if quadrant is not None:
-        return [b for b in _blips.values() if b.position.quadrant == quadrant]
+        return _filter_by_quadrant(_blips.values(), quadrant)
+    if ring is not None:
+        return _filter_by_ring(_blips.values(), ring)
     else:
         return _blips.values()
 
