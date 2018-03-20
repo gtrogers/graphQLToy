@@ -12,7 +12,7 @@ Point your browser to `localhost:5000/graphql` to see the query explorer
 
 ## Example queries
 
-```json
+```graphql
 query {
   blip(id: 0) {
     name
